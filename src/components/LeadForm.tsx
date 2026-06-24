@@ -54,20 +54,13 @@ export function LeadForm({ type = "msm" }: { type?: LeadType }) {
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   async function onSubmit(values: FormValues) {
-    // Deliver to Netlify Forms (dashboard → Forms + email notifications).
-    const payload: Record<string, string> = {
-      "form-name": "naren-leads",
-      "bot-field": "",
-      type,
-      ...Object.fromEntries(
-        Object.entries(values).map(([k, v]) => [k, v == null ? "" : String(v)]),
-      ),
-    };
+    // Send to our API route, which forwards to the Google Sheet.
+    const form = type === "booking" ? "Book Naren" : type === "msm" ? "Marketing Session" : "Contact";
     try {
-      await fetch("/", {
+      await fetch("/api/lead", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(payload).toString(),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ form, type, ...values }),
       });
     } catch {
       /* network hiccup — still show success so the user isn't stuck */
