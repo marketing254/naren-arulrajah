@@ -1,0 +1,14 @@
+# Netlify deploy config for the Next.js (App Router) site.
+# The official plugin handles SSR/SSG, image optimization, and route handlers.
+# Netlify auto-installs @netlify/plugin-nextjs when this plugin block is present.
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  # Pin a modern Node for the build (Next 16 needs 20+; 22 matches local testing).
+  NODE_VERSION = "22"

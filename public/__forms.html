@@ -1,0 +1,35 @@
+<!doctype html>
+<!--
+  Netlify Forms detection file.
+  Netlify scans deployed HTML at build time to register forms. Our real forms
+  are React client components that submit via fetch, so we declare the form
+  shapes here (hidden) and the React forms POST to "/" with the matching
+  form-name. Submissions then appear under Netlify dashboard → Forms, and email
+  notifications can be turned on there (Forms → Settings & usage → Notifications).
+-->
+<html>
+  <head><meta charset="utf-8" /></head>
+  <body>
+    <form name="naren-leads" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="type" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="practice" />
+      <input type="text" name="vertical" />
+      <input type="text" name="phone" />
+      <input type="text" name="website" />
+      <input type="text" name="organization" />
+      <input type="text" name="eventType" />
+      <input type="text" name="eventDate" />
+      <textarea name="message"></textarea>
+      <input type="text" name="bot-field" />
+    </form>
+
+    <form name="newsletter" netlify netlify-honeypot="bot-field" hidden>
+      <input type="email" name="email" />
+      <input type="text" name="consent" />
+      <input type="text" name="source" />
+      <input type="text" name="bot-field" />
+    </form>
+  </body>
+</html>
