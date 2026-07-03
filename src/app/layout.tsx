@@ -3,6 +3,7 @@ import { Fraunces, Hanken_Grotesk, Syne } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Analytics } from "@/components/Analytics";
 import { personJsonLd, organizationJsonLd } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
@@ -99,6 +100,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
