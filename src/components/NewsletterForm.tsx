@@ -32,19 +32,17 @@ export function NewsletterForm({
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   async function onSubmit(values: FormValues) {
-    // Deliver to Netlify Forms (dashboard → Forms + email notifications).
-    const payload = {
-      "form-name": "newsletter",
-      "bot-field": "",
-      email: values.email,
-      consent: values.consent ? "yes" : "no",
-      source,
-    };
+    // Send to our API route, which forwards to the Google Sheet.
     try {
-      await fetch("/", {
+      await fetch("/api/lead", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(payload).toString(),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          form: "Newsletter",
+          email: values.email,
+          message: values.consent ? "consent: yes" : "consent: no",
+          source,
+        }),
       });
     } catch {
       /* network hiccup — still confirm so the user isn't stuck */

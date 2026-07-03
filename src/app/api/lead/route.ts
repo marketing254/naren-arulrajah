@@ -1,24 +1,39 @@
 import { NextResponse } from "next/server";
 
 /**
- * STUB lead endpoint. Logs the payload and returns 200 so every form on the
- * site works end-to-end during build review.
+ * Lead + newsletter endpoint. Every form on the site POSTs its JSON here, and
+ * this route forwards it (server-to-server, so no browser CORS issues) to the
+ * Google Apps Script Web App, which appends a row to the "Naren Site — Leads"
+ * Google Sheet.
  *
- * TODO (handoff to Reshani / backend): replace this with the real destination —
- * forward to the MSM/CRM, the ESP (newsletter), or an email service per
- * payload.type ("msm" | "speaking" | "media" | "general" | "newsletter").
- * Keep the source/type fields so leads from this site stay attributable.
+ * The Web App URL can be overridden with the SHEET_WEBHOOK_URL env var in
+ * Vercel; otherwise it falls back to the deployed Apps Script below.
  */
+const SHEET_WEBHOOK_URL =
+  process.env.SHEET_WEBHOOK_URL ||
+  "https://script.google.com/macros/s/AKfycbzZjJ9VmwVh3TI-qj-zxi2bTS1Z7uXDpGcDiVfnKr1CSjvYo_etIpYvdAHvC3BBohIe/exec";
+
 export async function POST(request: Request) {
-  let payload: unknown = null;
+  let payload: Record<string, unknown> = {};
   try {
     payload = await request.json();
   } catch {
     return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 });
   }
 
-  // eslint-disable-next-line no-console
-  console.info("[lead] received", payload);
+  try {
+    await fetch(SHEET_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...payload, receivedAt: new Date().toISOString() }),
+      redirect: "follow",
+    });
+  } catch {
+    // Don't fail the visitor's submission if the sheet is briefly unreachable;
+    // log for debugging in the Vercel function logs.
+    // eslint-disable-next-line no-console
+    console.error("[lead] failed to forward to sheet", payload);
+  }
 
   return NextResponse.json({ ok: true });
 }
