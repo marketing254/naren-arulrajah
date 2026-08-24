@@ -4,13 +4,14 @@ import { Container } from "@/components/Container";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Reveal } from "@/components/Reveal";
 import { CheckIcon } from "@/components/icons";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Book a Complimentary Marketing Session",
   description:
     "Book a free, high-value marketing session with Ekwa Marketing, Naren's agency. A working session focused on your healthcare practice and your numbers. Not a sales call.",
-  alternates: { canonical: "/msm" },
-};
+  path: "/msm",
+});
 
 const walkAway = [
   "A clear read on where your practice stands today",

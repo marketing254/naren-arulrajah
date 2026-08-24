@@ -4,7 +4,8 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Analytics } from "@/components/Analytics";
-import { personJsonLd, organizationJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { personJsonLd, organizationJsonLd, webSiteJsonLd } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 const fraunces = Fraunces({
@@ -79,16 +80,9 @@ export default function RootLayout({
       className={`${fraunces.variable} ${hanken.variable} ${syne.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-ink-900 text-paper-50">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd()) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationJsonLd()),
-          }}
-        />
+        <JsonLd data={personJsonLd()} />
+        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={webSiteJsonLd()} />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-accent-500 focus:px-4 focus:py-2 focus:text-ink-900 focus:font-semibold"

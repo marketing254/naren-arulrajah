@@ -20,10 +20,13 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close mobile menu on route change.
-  useEffect(() => {
+  // Close mobile menu on route change (state adjustment during render —
+  // avoids a setState-in-effect cascade).
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
     setOpen(false);
-  }, [pathname]);
+  }
 
   // Lock scroll when the slide-over is open.
   useEffect(() => {

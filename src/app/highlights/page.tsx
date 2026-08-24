@@ -6,21 +6,24 @@ import { Reveal } from "@/components/Reveal";
 import { ReelGrid } from "@/components/ReelGrid";
 import { ChannelRail } from "@/components/ChannelRail";
 import { CTASection } from "@/components/CTASection";
+import { JsonLd } from "@/components/JsonLd";
+import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { getReels } from "@/lib/instagram";
 import { clipCategories } from "@/content/clips";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Highlights",
   description:
     "Short-form video highlights from Naren Arulrajah on marketing, AI and the future of search, founder lessons, patient acquisition, leadership, and mindset.",
-  alternates: { canonical: "/highlights" },
-};
+  path: "/highlights",
+});
 
 export default async function HighlightsPage() {
   const reels = await getReels(12);
 
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd([{ name: "Highlights", path: "/highlights" }])} />
       {/* Sleek centered hero with glow */}
       <section className="relative isolate overflow-hidden bg-ink-900 pt-36 pb-20 grain">
         <div

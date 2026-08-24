@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import { Section } from "@/components/Section";
 import { Container } from "@/components/Container";
 import { SITE } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Terms of Use",
-  description: "The terms that govern your use of this website.",
-  alternates: { canonical: "/terms" },
+  ...pageMetadata({
+    title: "Terms of Use",
+    description: "The terms that govern your use of this website.",
+    path: "/terms",
+  }),
   robots: { index: true, follow: true },
 };
 

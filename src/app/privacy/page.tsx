@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import { Section } from "@/components/Section";
 import { Container } from "@/components/Container";
 import { SITE } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description: "How this site collects, uses, and protects your information.",
-  alternates: { canonical: "/privacy" },
+  ...pageMetadata({
+    title: "Privacy Policy",
+    description: "How this site collects, uses, and protects your information.",
+    path: "/privacy",
+  }),
   robots: { index: true, follow: true },
 };
 

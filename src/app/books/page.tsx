@@ -7,17 +7,22 @@ import { Button } from "@/components/Button";
 import { PlaceholderImage } from "@/components/PlaceholderImage";
 import { CTASection } from "@/components/CTASection";
 import { BookIcon } from "@/components/icons";
+import { JsonLd } from "@/components/JsonLd";
+import { pageMetadata, booksJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import { books } from "@/content/books";
 
-export const metadata: Metadata = {
-  title: "Books",
-  description: "Books published by Naren Arulrajah on marketing and growing a healthcare practice.",
-  alternates: { canonical: "/books" },
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Books by Naren Arulrajah",
+  description:
+    "Books published by Naren Arulrajah on marketing and growing a healthcare practice, including the Game Over series on winning the top of Google search.",
+  path: "/books",
+});
 
 export default function BooksPage() {
   return (
     <>
+      <JsonLd data={booksJsonLd(books)} />
+      <JsonLd data={breadcrumbJsonLd([{ name: "Books", path: "/books" }])} />
       <Section theme="dark" grain className="!pt-32">
         <Container>
           <Reveal>

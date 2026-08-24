@@ -31,7 +31,6 @@ export async function POST(request: Request) {
   } catch {
     // Don't fail the visitor's submission if the sheet is briefly unreachable;
     // log for debugging in the Vercel function logs.
-    // eslint-disable-next-line no-console
     console.error("[lead] failed to forward to sheet", payload);
   }
 

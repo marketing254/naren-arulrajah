@@ -5,18 +5,22 @@ import { Eyebrow } from "@/components/Eyebrow";
 import { Reveal } from "@/components/Reveal";
 import { CTASection } from "@/components/CTASection";
 import { ArrowRight, MicIcon } from "@/components/icons";
+import { JsonLd } from "@/components/JsonLd";
+import { pageMetadata, podcastsJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import { shows, originalPodcast } from "@/content/podcasts";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Podcasts",
   description:
     "The podcasts Naren Arulrajah hosts and is a regular presence on, across dental, veterinary, medical aesthetics, ophthalmology, and legal practices.",
-  alternates: { canonical: "/podcasts" },
-};
+  path: "/podcasts",
+});
 
 export default function PodcastsPage() {
   return (
     <>
+      <JsonLd data={podcastsJsonLd(shows)} />
+      <JsonLd data={breadcrumbJsonLd([{ name: "Podcasts", path: "/podcasts" }])} />
       <Section theme="dark" grain className="!pt-32">
         <Container>
           <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
@@ -43,8 +47,8 @@ export default function PodcastsPage() {
                     title={`Visit ${show.name}`}
                     className="flex h-20 items-center justify-center rounded-xl border border-white/10 bg-paper-50 p-3 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
                   >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     {show.logo ? (
+                      // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src={show.logo}
                         alt={show.name}

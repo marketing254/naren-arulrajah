@@ -7,13 +7,15 @@ import { Button } from "@/components/Button";
 import { LeadForm } from "@/components/LeadForm";
 import { CalendarIcon, VideoIcon, MicIcon, GlobeIcon, CheckIcon } from "@/components/icons";
 import { SPEAKING_TOPICS, MSM_CTA } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
+import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Book Naren to Speak",
   description:
     "Book Naren Arulrajah for keynotes, workshops, panels, webinars, and podcast interviews. Topics include SEO, the impact of AI on search and marketing, healthcare practice marketing, and the founder journey.",
-  alternates: { canonical: "/book" },
-};
+  path: "/book",
+});
 
 const bookingOptions = [
   {
@@ -41,6 +43,7 @@ const bookingOptions = [
 export default function BookNarenPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd([{ name: "Book Naren to Speak", path: "/book" }])} />
       {/* Hero — copy + booking form side by side for instant access */}
       <Section theme="dark" grain className="!pt-32">
         <Container>

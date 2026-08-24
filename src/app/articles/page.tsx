@@ -5,18 +5,21 @@ import { Eyebrow } from "@/components/Eyebrow";
 import { Reveal } from "@/components/Reveal";
 import { ArticleList } from "@/components/ArticleList";
 import { CTASection } from "@/components/CTASection";
+import { JsonLd } from "@/components/JsonLd";
+import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { articles } from "@/content/articles";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Articles",
   description:
     "Articles written by and featuring Naren Arulrajah on healthcare marketing, SEO, the impact of AI on search, and growing a practice.",
-  alternates: { canonical: "/articles" },
-};
+  path: "/articles",
+});
 
 export default function ArticlesPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd([{ name: "Articles", path: "/articles" }])} />
       <Section theme="dark" grain className="!pt-32">
         <Container>
           <Reveal>

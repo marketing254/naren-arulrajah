@@ -6,16 +6,18 @@ import { Reveal } from "@/components/Reveal";
 import { YouTubeEmbed } from "@/components/YouTubeEmbed";
 import { AppearanceFilter } from "@/components/AppearanceFilter";
 import { CTASection } from "@/components/CTASection";
+import { JsonLd } from "@/components/JsonLd";
+import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { youtubeVideos } from "@/content/videos";
 import { appearances } from "@/content/appearances";
 import { getLiveEpisodes } from "@/lib/podcast-feeds";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Interviews",
   description:
     "Every time Naren Arulrajah was a guest: podcast interviews, video conversations, webinars, and media features on marketing, AI, and practice growth.",
-  alternates: { canonical: "/interviews" },
-};
+  path: "/interviews",
+});
 
 export default async function InterviewsPage() {
   // "More appearances" = live LID episodes that actually feature Naren (filtered
@@ -45,6 +47,7 @@ export default async function InterviewsPage() {
 
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd([{ name: "Interviews", path: "/interviews" }])} />
       <Section theme="dark" grain className="!pt-32">
         <Container>
           <Reveal>

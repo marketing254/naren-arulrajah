@@ -7,15 +7,17 @@ import { Button } from "@/components/Button";
 import { CTASection } from "@/components/CTASection";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import { ArrowRight } from "@/components/icons";
+import { JsonLd } from "@/components/JsonLd";
 import { testimonials } from "@/content/testimonials";
 import { SITE } from "@/lib/site";
+import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About Ekwa Marketing",
   description:
     "Ekwa Marketing is the healthcare marketing agency Naren Arulrajah founded and leads. It helps practices get found, get liked, and get chosen, with a system built around real results.",
-  alternates: { canonical: "/about/ekwa" },
-};
+  path: "/about/ekwa",
+});
 
 const produces = [
   {
@@ -39,6 +41,12 @@ const produces = [
 export default function EkwaPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "About", path: "/about" },
+          { name: "About Ekwa Marketing", path: "/about/ekwa" },
+        ])}
+      />
       {/* Hero */}
       <Section theme="dark" grain className="!pt-32">
         <Container>

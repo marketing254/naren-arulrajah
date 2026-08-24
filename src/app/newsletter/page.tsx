@@ -5,13 +5,14 @@ import { Eyebrow } from "@/components/Eyebrow";
 import { Reveal } from "@/components/Reveal";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { CheckIcon } from "@/components/icons";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Newsletter",
   description:
     "Subscribe to be notified when Naren Arulrajah publishes new podcasts, articles, clips, and speaking announcements.",
-  alternates: { canonical: "/newsletter" },
-};
+  path: "/newsletter",
+});
 
 const perks = [
   "New podcast episodes and interviews",

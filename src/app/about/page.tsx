@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Section } from "@/components/Section";
 import { Container } from "@/components/Container";
 import { Eyebrow } from "@/components/Eyebrow";
@@ -8,6 +7,8 @@ import { Button } from "@/components/Button";
 import { CTASection } from "@/components/CTASection";
 import { PortraitImage } from "@/components/PortraitImage";
 import { ArrowRight } from "@/components/icons";
+import { JsonLd } from "@/components/JsonLd";
+import { pageMetadata, profilePageJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import { articles } from "@/content/articles";
 
 // Three on-brand, high-confidence highlights (Find / Like / Choose flavored).
@@ -16,12 +17,12 @@ const featuredArticles = FEATURED_IDS
   .map((id) => articles.find((a) => a.id === id))
   .filter((a): a is (typeof articles)[number] => Boolean(a));
 
-export const metadata: Metadata = {
-  title: "About",
+export const metadata: Metadata = pageMetadata({
+  title: "About Naren Arulrajah",
   description:
     "Naren Arulrajah is the founder of Ekwa Marketing. He helps healthcare practices grow by helping the right patients find, like, and choose them.",
-  alternates: { canonical: "/about" },
-};
+  path: "/about",
+});
 
 const beliefs = [
   {
@@ -41,6 +42,8 @@ const beliefs = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={profilePageJsonLd()} />
+      <JsonLd data={breadcrumbJsonLd([{ name: "About", path: "/about" }])} />
       {/* Hero */}
       <Section theme="dark" grain className="!pt-32">
         <Container>
